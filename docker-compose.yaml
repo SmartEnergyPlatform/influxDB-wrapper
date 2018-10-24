@@ -1,0 +1,13 @@
+version: '2.1'
+services:
+    influx-auth:
+        container_name: influx-auth
+        image: influx-auth
+        ports:
+            - 8080:5000
+        environment:
+            - INFLUX_DB_HOST=fg
+            - INFLUX_DB_PORT=8080
+            - SERVING_SERVICE_HOST=fg
+            - SERVING_SERVICE_PORT=8080
+

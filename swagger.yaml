@@ -1,0 +1,73 @@
+swagger: "2.0"
+info:
+  description: "Query data of your Influx database."
+  version: "1.0.0"
+  title: "Influx DB Query"
+host: "api.sepl.infai.org"
+basePath: "/db"
+schemes:
+- "https"
+paths:
+  /measurements:
+    get:
+      tags:
+        - "Query"
+      summary: ""
+      description: "Get measurements"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "Returns measurements"
+  /measurement/{measurement_id}:
+    get:
+      parameters: 
+        - name: measurement_id
+          in: path
+          description: measurement id
+          required: true
+          type: string
+        - name: time.lte
+          in: query
+          description: Filter for field 'time' with values less then or equal
+          required: false
+          type: string
+        - name: time.gte
+          in: query
+          description: Filter for field 'time' with values greater then or equal
+          required: false
+          type: string
+        - name: value.gte
+          in: query
+          description: Filter for field 'value' with values greater then or equal
+          required: false
+          type: number
+        - name: value.lte
+          in: query
+          description: Filter for field 'value' with values less then or equal
+          required: false
+          type: number
+        - name: interval
+          in: query
+          description: Filter for field 'time' with time values (2M, 3D)
+          required: false
+          type: string
+        - name: limit
+          in: query
+          description: Filter for field 'value' with values less then or equal
+          required: false
+          type: integer
+        - name: offset
+          in: query
+          description: Filter for field 'value' with values less then or equal
+          required: false
+          type: integer
+      tags:
+        - "Query"
+      summary: ""
+      description: "Query data from InfluxDB. You can filter dynamically for field values that you have specified in the export section, like 'value'. The field 'time' is mandatory. You have to set the query parameter with then name of your field, followd by an point and 'lte' for less or equal or 'gte' for greater or equal."
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "Return query response"
